@@ -1,0 +1,193 @@
+<div ng-controller="ConferenceCtrl">
+    <h1>Conferences</h1>
+
+    <div class="alert alert-danger" ng-show="error">Erreur <b>{{error.code}}</b><br>
+        {{error.message}}
+    </div>
+
+    <div>
+        <button type="button" class="btn btn-xs btn-info" ng-click="dialogUpdate.launch()">
+            <span class="glyphicon glyphicon-plus"></span>
+        </button>
+    </div>
+    <table class="table table-bordered table-condensed table-striped" style="margin-top:10px">
+        <thead>
+        <tr>
+            <th>Id&nbsp;</th>
+            <th>Name&nbsp;</th>
+            <th>Logo&nbsp;</th>
+            <th>Start date&nbsp;</th>
+            <th>End date&nbsp;</th>
+            <th>Attendees</th>
+            <th>Slots</th>
+            <th>&nbsp;</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="data in conferences" ng-click="dialogUpdate.launch(data)">
+            <td>
+                <small>{{data.id}}</small>
+            </td>
+            <td>
+                <small>{{data.name}}</small>
+            </td>
+            <td>
+                <small><img ng-src="images/{{data.image}}" class="img-responsive"
+                            style="max-height: 40px; max-width: 225"/></small>
+            </td>
+            <td>
+                <small>{{data.dateStart|date:'yyyy-MM-dd HH:mm:ss'}}</small>
+            </td>
+            <td>
+                <small>{{data.dateEnd|date:'yyyy-MM-dd'}}</small>
+            </td>
+            <td>
+                <small>{{data.nbAttendees}}</small>
+            </td>
+            <td>
+                <small>{{data.nbConferenceSlot}}</small>
+            </td>
+            <td width="5%">
+                <button type="button" class="btn btn-xs btn-danger" ng-click="delete(data, $index, $event)">
+                    <span class="glyphicon glyphicon-trash"></span><span ng-show="help">&nbsp;Supprimer</span>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="modal fade" id="dialogUpdate" role="dialog" aria-labelledby="dialogUpdateLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="dialogUpdateLabel">Conference</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form" name="form" novalidate>
+
+                        <div class="row">
+                            <img ng-src="images/{{conference.image}}" class="img-responsive" style="max-height: 90px"/>
+                        </div>
+                            <div class="row">
+                            <div class="col-xs-2">
+                                <div class="form-group" ng-show="conference.id>0">
+                                    <label class="control-label" for="data-id">&nbsp;Id</label>
+                                    <input type="text" class="form-control input-sm" id="data-id" placeholder="0"
+                                           readonly
+                                           ng-model="conference.id">
+                                </div>
+                            </div>
+                            <div class="col-xs-10">
+                                <div class="form-group">
+                                    <label class="control-label" for="data-name">&nbsp;Name</label>
+                                    <input type="text" class="form-control input-sm" id="data-name"
+                                           placeholder="Name" required ng-model="conference.name">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="data-dateStart">&nbsp;Start date</label>
+                                    <input type="text" id="data-dateStart" class="form-control input-sm" required
+                                           ng-model="conference.dateStart">
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="data-dateEnd">&nbsp;End date</label>
+                                    <input type="text" id="data-dateEnd" class="form-control input-sm" required
+                                           ng-model="conference.dateEnd">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="data-streetAdress">&nbsp;Streat adress</label>
+                            <input type="text" class="form-control input-sm" id="data-streetAdress"
+                                   ng-model="conference.streetAdress">
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label class="control-label" for="data-postalCode">&nbsp;Postal code</label>
+                                    <input type="text" class="form-control input-sm" id="data-postalCode"
+                                           ng-model="conference.postalCode">
+                                </div>
+                            </div>
+
+                            <div class="col-xs-9">
+                                <div class="form-group">
+                                    <label class="control-label" for="data-city">&nbsp;City</label>
+                                    <input type="text" class="form-control input-sm" id="data-city"
+                                           ng-model="conference.city">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="control-label" for="data-codeCountry">&nbsp;Code country</label>
+                                    <input type="text" class="form-control input-sm" id="data-codeCountry"
+                                           ng-model="conference.codeCountry">
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="control-label" for="data-nbConferenceProposals">&nbsp;Nb conf
+                                        proposals</label>
+                                    <input type="text" class="form-control input-sm" id="data-nbConferenceProposals"
+                                           ng-model="conference.nbConferenceProposals">
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="control-label" for="data-nbTwitterFollowers">&nbsp;Nb twitter
+                                        followers</label>
+                                    <input type="text" class="form-control input-sm" id="data-nbTwitterFollowers"
+                                           ng-model="conference.nbTwitterFollowers">
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="control-label" for="data-nbHoursToSellTicket">&nbsp;Nb hours to sell
+                                        tickets</label>
+                                    <input type="text" class="form-control input-sm" id="data-nbHoursToSellTicket"
+                                           ng-model="conference.nbHoursToSellTicket">
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="control-label" for="data-nbAttendees">&nbsp;Nb attendees</label>
+                                    <input type="text" class="form-control input-sm" id="data-nbAttendees"
+                                           ng-model="conference.nbAttendees">
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="control-label" for="data-nbConferenceSlot">&nbsp;Nb slots</label>
+                                    <input type="text" class="form-control input-sm" id="data-nbConferenceSlot"
+                                           ng-model="conference.nbConferenceSlot">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </form>
+                </div>
+                <div class="modal-footer modal-footer-boiron">
+                    <div class="btn-group">
+                        <button type="button" class="btn  btn-default" ng-click="dialogUpdate.cancel()">Cancel</button>
+                        <button type="button" class="btn  btn-info" ng-click="dialogUpdate.save(conference)">Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

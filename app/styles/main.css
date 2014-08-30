@@ -1,0 +1,40 @@
+/* Space out content a bit */
+body {
+    padding-top: 60px;
+    padding-bottom: 20px;
+}
+
+.myfooter {
+    position: fixed;
+    bottom: 0px;
+    border-top: 1px solid #cccccc;
+    width: 100%;
+    background-color: #000000;
+    color: #ffffff;
+    z-index: 1000;
+    height: 30px;
+}
+
+/* Introduit des marge au container */
+.mycontainer {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 0px;
+}
+
+.myImage{
+    max-width: 100%;
+}
+
+tbody > tr:hover > td,
+tbody > tr:hover > th {
+    background-color: #E2F4FB;
+}
+
+thead {
+    background-color: #33B5E5;
+}
+
+thead > tr > th {
+    color: #eeeeee;
+}

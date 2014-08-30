@@ -1,0 +1,22 @@
+<div class="modal fade" id="{{dialogInfo.id}}" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-header-boiron">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">{{dialogInfo.name}}</h4>
+            </div>
+            <div class="modal-body modal-body-boiron">
+                <div ng-transclude></div>
+            </div>
+            <div class="modal-footer modal-footer-boiron">
+                <div class="btn-group">
+                    <button type="button" ng-repeat="button in dialogInfo.buttons"
+                            class="btn  btn-{{button.styleBtn}}"
+                            ng-click="button.clickBtn()">
+                        {{button.nameBtn}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

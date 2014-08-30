@@ -1,0 +1,100 @@
+<div ng-controller="TalkCtrl">
+    <h1>Talks</h1>
+
+    <div>
+        <button type="button" class="btn btn-xs btn-info" ng-click="dialogUpdate.launch()">
+            <span class="glyphicon glyphicon-plus"></span>
+        </button>
+    </div>
+    <table class="table table-bordered table-condensed table-striped" style="margin-top:10px">
+        <thead>
+        <tr>
+            <th>Id&nbsp;</th>
+            <th>Name&nbsp;</th>
+            <th>Level&nbsp;</th>
+            <th>Place&nbsp;</th>
+            <th>&nbsp;</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="data in talks" ng-click="dialogUpdate.launch(data)">
+            <td>
+                <small>{{data.id}}</small>
+            </td>
+            <td>
+                <small>{{data.name}}</small>
+            </td>
+            <td>
+                <small>{{data.level}}</small>
+            </td>
+            <td>
+                <small>{{data.place}}</small>
+            </td>
+            <td width="5%">
+                <button type="button" class="btn btn-xs btn-danger" ng-click="delete(data, $index, $event)">
+                    <span class="glyphicon glyphicon-trash"></span><span ng-show="help">&nbsp;Supprimer</span>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="modal fade" id="dialogUpdate" role="dialog" aria-labelledby="dialogUpdateLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="dialogUpdateLabel">Talk</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form" name="form" novalidate>
+                        <div class="form-group" ng-show="talk.id>0">
+                            <label class="control-label" for="data-id">&nbsp;Id</label>
+                            <input type="text" class="form-control input-sm" id="data-id" placeholder="0" readonly
+                                   ng-model="talk.id">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="data-name">&nbsp;Name</label>
+                            <input type="text"  class="form-control input-sm" id="data-name"
+                                   required ng-model="talk.name">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="data-description">&nbsp;Description</label>
+                            <textarea id="data-description" class="form-control input-sm" ngMaxlength="1000"
+                                   ng-model="talk.description"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="data-place">&nbsp;Place</label>
+                            <input type="text" id="data-place" class="form-control input-sm"
+                                   ng-model="talk.place">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="data-streetAdress">&nbsp;Streat adress</label>
+                            <input type="text"  class="form-control input-sm" id="data-streetAdress"
+                                   ng-model="talk.streetAdress">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="data-nbpeoplemax">&nbsp;Nb people max</label>
+                            <input type="number"  class="form-control input-sm" id="data-nbpeoplemax"
+                                   ng-model="talk.nbpeoplemax">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="data-level">&nbsp;Level</label>
+                            <select  class="form-control input-sm" id="data-level" ng-model="talk.level"
+                                     ng-options="value for (key,value) in levels"/>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer modal-footer-boiron">
+                    <div class="btn-group">
+                        <button type="button" class="btn  btn-default" ng-click="dialogUpdate.cancel()">Cancel</button>
+                        <button type="button" class="btn  btn-info" ng-click="dialogUpdate.save(talk)">Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
